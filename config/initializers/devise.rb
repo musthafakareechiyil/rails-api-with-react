@@ -315,4 +315,8 @@ Devise.setup do |config|
     jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
   end
 
+  config.navigational_formats = []
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
 end

@@ -2,11 +2,17 @@ class MembersController < ApplicationController
     before_action :authenticate_user!
 
     def show
-        user = get_user_from_token
-        render json: {
-            message: "you are in , yeah bro",
-            user: user
-        }
+        begin
+            user = get_user_from_token
+            render json: {
+              message: "You are in, yeah bro",
+              user: user
+            }
+        rescue JWT::DecodeError => e
+            render json: { message: 'Invalid JWT token', error: e.message }, status: :unauthorized
+        rescue ActiveRecord::RecordNotFound => e
+            render json: { message: 'User not found', error: e.message }, status: :not_found
+        end
     end
 
     private

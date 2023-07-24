@@ -1,6 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
     respond_to :json
 
+
     private
 
     def respond_with(resource, _opts = {})
@@ -11,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def register_success
         render json:{
-            message: 'Signed in successfully',
+            status: true,
             user: current_user
         }, status: :ok
     end
